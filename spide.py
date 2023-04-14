@@ -18,7 +18,7 @@ from selenium.webdriver.common.by import By
 # from scripts.python模拟键盘鼠标操作 import MyLibrary
 
 vpnuser="mariaxu991116@gmail.com"
-pwd='1973zv..'  #也是邮箱密码
+pwd='1973zv..'  #也是邮箱密码 /usr/local/bin/chromedriver
 
 all_user_pool=[
     #用一个扔一个
