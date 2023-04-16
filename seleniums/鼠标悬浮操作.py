@@ -16,9 +16,9 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 options = webdriver.ChromeOptions()
-driver = webdriver.Chrome(executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\chromedriver.exe")
+driver = webdriver.Chrome()
 
 # ActionChains(driver).move_to_element(driver.find_element_by_link_text("设置")).perform()
-ActionChains(driver).move_to_element(driver.find_element(By.LINK_TEXT,"设置")).perform()
+ActionChains(driver).move_to_element(driver.find_element(By.LINK_TEXT, "设置")).perform()
 time.sleep(2)
-driver.find_element(By.LINK_TEXT,"高级搜索").click()
+driver.find_element(By.LINK_TEXT, "高级搜索").click()
