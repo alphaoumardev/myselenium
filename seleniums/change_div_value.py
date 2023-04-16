@@ -61,7 +61,7 @@ if __name__ == '__main__':
     driver = webdriver.Chrome(executable_path='/home/test/MyCode/Common/driver/chromedriver_105',
                               chrome_options=options)
 
-    driver.get('http://www.baidu.com')
+    driver.get('https://www.baidu.com')
 
     # element_obj = driver.find_element_by_xpath('//*[@id="su"]') #selenium版本低于4
     element_obj = driver.find_element(By.XPATH,'//*[@id="su"]')

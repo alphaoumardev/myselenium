@@ -16,20 +16,22 @@ from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-all_user_pool = [{"13451728020@163.com": "81762371lbj123"}]
+# from seleniums.selenium_mouseandkeyboard import MyLibrary
+
+# all_user_pool = [{"13451728020@163.com": "81762371lbj123"}]
+all_user_pool = [{"alphaoumardev@outlook.com": "bonjouroumar200"}]
 
 
 def choose_user(user_index=0):
+    global user_login, pwd_login
     for k, v in all_user_pool[user_index]:
         user_login, pwd_login = k, v
     return user_index, user_login, pwd_login
 
 
 # 后续user池选择
+print('Open Chromedriver')
 
-print('尝试打开chrome')
-
-# nox_wh登录的url
 nox_login_brand = "https://cn.noxinfluencer.com/login?userType=brand&service=https%3A%2F%2Fcn.noxinfluencer.com%2F"
 
 
@@ -57,32 +59,32 @@ def driver_get(url):
     return driver.get(url)
 
 
-def start_driver(tag='Chrome', executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\chromedriver.exe"):
-    print('初始化--driver')
+def start_driver():
+    print('Driver initialization...')
     try:
-        if tag == 'Firefox':
-            options = webdriver.FirefoxOptions()
-            driver = webdriver.Firefox(
-                executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\geckodriver.exe")
-        elif tag == 'Edge':
-            options = webdriver.EdgeOptions()
-            driver = webdriver.Edge(executable_path)
-        elif tag == 'Ie':
-            options = webdriver.IeOptions()
-            driver = webdriver.Ie(executable_path)
-        else:
-            # 默认chrome
-            options = webdriver.ChromeOptions()
-            driver = webdriver.Chrome(executable_path)
+        # if tag == 'Firefox':
+        #     options = webdriver.FirefoxOptions()
+        #     driver = webdriver.Firefox(
+        #         executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\geckodriver.exe")
+        # if tag == 'Edge':
+        #     options = webdriver.EdgeOptions()
+        #     driver = webdriver.Edge(executable_path)
+        # elif tag == 'Ie':
+        #     options = webdriver.IeOptions()
+        #     driver = webdriver.Ie(executable_path)
+        # else:
+        #     # 默认chrome
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Chrome()
         # # 设定页面加载timeout时长，需要的元素能加载出来就行
         # driver.set_page_load_timeout(15)
         # driver.set_script_timeout(15)
         return options, driver
     except Exception as e:
-        print('浏览器驱动启动失败:', e)
+        print('The broswer has NOT started:', e)
 
 
-def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
+def nox_login(url=nox_login_brand, user_login='alphaoumardev@outlook.com', pwd_login='bonjouroumar200'):
     """默认品牌方"""
     if url == nox_login_brand:
         driver.get(url)  # 会导致阻塞，需要异步或者线程来强停,否则会等待加载再继续
@@ -98,7 +100,7 @@ def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
         # pwd_id_text = "pwd-text"  #两个input输入框嵌套
         submit_id = "login-submit"
 
-        print('开始登录')
+        print('Login...')
 
         try:
             user_dw = driver.find_element("id", value=user_id)  # 返回element对象
@@ -107,7 +109,7 @@ def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
             user_dw.send_keys(user_login)  # 在输入框输入
             # value_user = user_dw.get_attribute('value')  # .text方法拿不到input的值，用这个查看,具体搜索get_attribute用法
         except Exception as e:
-            error_tips = {'1002', '登录用户名定位失败'}
+            error_tips = {'1002', 'The username has failed'}
             print(error_tips, e)
             return error_tips
 
@@ -116,7 +118,7 @@ def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
             pwd_dw.click()
             pwd_dw.send_keys(pwd_login)
         except Exception as e:
-            error_tips = {'1003', '密码输入失败'}
+            error_tips = {'1003', 'The password has failed'}
             print(error_tips, e)
             return error_tips
 
@@ -124,7 +126,7 @@ def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
             subbutton_dw = driver.find_element(by=By.ID, value=submit_id)
             subbutton_dw.click()
         except Exception as e:
-            error_tips = {'1004', '登录操作失败'}
+            error_tips = {'1004', 'Login has failed'}
             print(error_tips, e)
             return error_tips
 
@@ -135,7 +137,7 @@ def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
         # MyLibrary().keybd_event(27)  # 多加几个防止不生效
 
         # 检查是否被ban
-        print('登录成功并且跳转成功')
+        print('You are banned')
 
         # 打开新窗口
         # driver.execute_script("window.open('https://cn.noxinfluencer.com/youtube/channel/UCq-Fj5jknLsUf-MWSy4_brA')") #只有script的opend才可stop
@@ -143,7 +145,7 @@ def nox_login(url=nox_login_brand, user_login='', pwd_login=''):
         # driver.close()  # 关闭当前
         # return cookies
     else:
-        print('网红方登录待开发')
+        print('You are logged In')
 
 
 # 设置代理在options里add
@@ -180,7 +182,10 @@ def save(save_type='mysql', path='', data_row=''):
 
 if __name__ == '__main__':
     # 1.启动浏览器
+    # / html / body / section / section / div / div[2] / div / div[
+    #     1] / div / div / div / div / div / div / div / div / table / tbody / tr[1]
     options, driver = start_driver()
+
     # 2.选取登录用户
     user_index, user_login, pwd_login = choose_user(user_index=0)
     while True:
@@ -211,14 +216,14 @@ if __name__ == '__main__':
         print(whlist_dw_text)
 
     # 存储
-    # # print(len(whlist_dw_list))
-    # with open(r'G:\cyspider\webspider\spyder_web\nox\data\create_noxwh.csv','a+',newline="",encoding='utf-8') as f:  #newline=""保证不出现换行的空行
-    #     writer= csv.writer(f)
-    #     for whlist_dw in whlist_dw_list:
-    #         wh_nox_url=whlist_dw.get_attribute('data-row-key')  #nox网红的具体url  例如UCq-Fj5jknLsUf-MWSy4_brA
-    #         whlist_dw_text=whlist_dw.text
-    #         data_row=whlist_dw_text#具体的值name,youtube粉丝，nox评分,语言/country,tags,
-    #         print(data_row)
+    print(len(whlist_dw_list))
+    with open(r'nox.csv','a+',newline="",encoding='utf-8') as f:  #newline=""保证不出现换行的空行
+        writer= csv.writer(f)
+        for whlist_dw in whlist_dw_list:
+            wh_nox_url=whlist_dw.get_attribute('data-row-key')  #nox网红的具体url  例如UCq-Fj5jknLsUf-MWSy4_brA
+            whlist_dw_text=whlist_dw.text
+            data_row=whlist_dw_text#具体的值name,youtube粉丝，nox评分,语言/country,tags,
+            print(data_row)
     # """
     # T-Series  name
     # 234M      粉丝数
@@ -236,18 +241,19 @@ if __name__ == '__main__':
     # 点击下一页，这里使用输入
     defalut_index_input = 1  # 用于最下方输入，以及记录爬取到第几页了
 
-    # try:
-    #     #单个详情页
-    #     wh_2='https://cn.noxinfluencer.com/youtube/channel/UCq-Fj5jknLsUf-MWSy4_brA'
-    #     driver.get(wh_2)
-    # except TimeoutError as e:
-    #     MyLibrary().keybd_event(27)  #设置超过加载时间就强停
+    try:
+        # 单个详情页
+        wh_2='https://cn.noxinfluencer.com/youtube/channel/UCq-Fj5jknLsUf-MWSy4_brA'
+        driver.get(wh_2)
+    except TimeoutError as e:
+        raise e
+        # MyLibrary().keybd_event(27)  #设置超过加载时间就强停
     # 详情页find
 
-    # time.sleep(0.1)
-    # get_html()
-    #
-    # time.sleep(30)
+    time.sleep(0.1)
+    get_html()
+
+    time.sleep(30)
     # driver.quit() #关闭所有窗口
     # 无限循环
     while True:

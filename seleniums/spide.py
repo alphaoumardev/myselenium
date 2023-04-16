@@ -9,20 +9,20 @@ import csv
 import time
 
 import pymysql
-import win32api
-import win32con
+# import win32api
+# import win32con
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 # from scripts.python模拟键盘鼠标操作 import MyLibrary
 
-vpnuser="mariaxu991116@gmail.com"
-pwd='1973zv..'  #也是邮箱密码 /usr/local/bin/chromedriver
+vpnuser="alphaoumardev@outlook.com"
+pwd='bonjouroumar200'  #也是邮箱密码 /usr/local/bin/chromedriver
 
 all_user_pool=[
     #用一个扔一个
-    {"13451728020@163.com":"81762371lbj123"}, #已废弃
+    # {"13451728020@163.com":"81762371lbj123"}, #已废弃
     {"suzhaoli9909@gmail.com":"81762371lbj123"},
     {"sleepshark@0219@gmail.com":"81762371lbj123"},
     {"15321398040@163.com":"81762371lbj123"},
@@ -41,18 +41,20 @@ class MyLibrary(object):
     python模拟键盘鼠标操作
     """
     # VK_CODE为键盘编码
-    def keybd_event(self,VK_CODE):
+    @staticmethod
+    def keybd_event(VK_CODE):
         # @Keyboard
         # input
         VK_CODE = int(VK_CODE)
         print(":::VK_CODE:", VK_CODE)
-        win32api.keybd_event(VK_CODE, 0, 0, 0)
-        win32api.keybd_event(VK_CODE, 0, win32con.KEYEVENTF_KEYUP, 0)
+        # win32api.keybd_event(VK_CODE, 0, 0, 0)
+        # win32api.keybd_event(VK_CODE, 0, win32con.KEYEVENTF_KEYUP, 0)
         print(":::press", str(VK_CODE), "successfully!")
         time.sleep(2)
 
 
 def choose_user(user_index=0):
+    global user_login, pwd_login
     for k,v in all_user_pool[user_index].items():
         user_login,pwd_login=k,v
     return user_index,user_login,pwd_login
@@ -89,22 +91,22 @@ def driver_get(url):
     return driver.get(url)
 
 
-def start_driver(tag='Chrome',executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\chromedriver.exe"):
+def start_driver(executable_path=r"/usr/local/bin/chromedriver"):
     print('初始化--driver')
     try:
-        if tag=='Firefox':
-            options = webdriver.FirefoxOptions()
-            driver=webdriver.Firefox(executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\geckodriver.exe")
-        elif tag=='Edge':
-            options = webdriver.EdgeOptions()
-            driver=webdriver.Edge(executable_path)
-        elif tag=='Ie':
-            options = webdriver.IeOptions()
-            driver=webdriver.Ie(executable_path)
-        else:
+        # if tag=='Firefox':
+        #     options = webdriver.FirefoxOptions()
+        #     driver=webdriver.Firefox(executable_path=r"/usr/local/bin/chromedriver")
+        # elif tag=='Edge':
+        #     options = webdriver.EdgeOptions()
+        #     driver=webdriver.Edge(executable_path)
+        # elif tag=='Ie':
+        #     options = webdriver.IeOptions()
+        #     driver=webdriver.Ie(executable_path)
+        # else:
             #默认chrome
-            options = webdriver.ChromeOptions()
-            driver = webdriver.Chrome(executable_path)
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Chrome(executable_path)
         # # 设定页面加载timeout时长，需要的元素能加载出来就行
         # driver.set_page_load_timeout(15)
         # driver.set_script_timeout(15)
@@ -228,8 +230,8 @@ class MysqlSpider(object):
         self.host = 'localhost'
         self.port = 3306
         self.user = 'root'
-        self.password = 'mysql123456'
-        self.db = 'spider'
+        self.password = 'Bonjouroumar200@'
+        self.db = 'nox'
         self.charset = 'utf8mb4'
 
     def connect(self,db):
@@ -266,7 +268,7 @@ if __name__ == '__main__':
     #检查并链接数据库
     print('初始化-链接数据库')
     c = MysqlSpider()
-    connection = c.connect('spider')
+    connection = c.connect('nox')
     # 读取索引
     sql = 'select * from `nox_wh_index`'
     try:
