@@ -39,15 +39,15 @@ driver.get(url)
 # time.sleep(10)
 driver.implicitly_wait(5)
 
-with open("influ.csv", "w", newline="", encoding="utf-8") as csvfile:
-    fieldnames = ["name", "subscribers", "views", "language", "tags", "avg_views", "estimated_earnings",
-                  "engagement_rate"]
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
-driver.implicitly_wait(5)
+# with open("influencers.csv", "w", newline="", encoding="utf-8") as csvfile:
+#     fieldnames = ["name", "subscribers", "views", "language", "tags", "avg_views", "estimated_earnings",
+#                   "engagement_rate"]
+#     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#     writer.writeheader()
+# driver.implicitly_wait(5)
 
 # Scrape the data of all influencers with multiple pages
-# influencer_data = []
+influencer_data = []
 while True:
     # Find all influencer cards on the page
     influencer_cards = driver.find_elements(By.XPATH, "//tbody/tr[@class='ant-table-row ant-table-row-level-0']")
@@ -57,7 +57,7 @@ while True:
 
     # Extract the data from each influencer card and add it to the list
     for row in influencer_cards:
-        avatar = row.find_element(By.CLASS_NAME, 'img.avatar').get_attribute('src')
+        avatar = row.find_element(By.XPATH, ".//img[@class='avatar'").get_attribute('src')
 
         name = row.find_element(By.XPATH, ".//td[1]/a/span[@class").text
         subscribers = row.find_element(By.XPATH, ".//td[2]").text
@@ -100,9 +100,9 @@ while True:
     # except Exception as e:
     #     print(e)
     # time.sleep(5)
-    driver.implicitly_wait(5)
-
-    # Save the data to a CSV file
+    # driver.implicitly_wait(5)
+    #
+    # # Save the data to a CSV file
     with open('influ.csv', mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(['avatar', 'Name', 'Subscribers', 'Views', 'language', 'category', 'price', 'Engagement Rate'])
@@ -110,4 +110,4 @@ while True:
 
     # Close the browser window
     # driver.quit()
-    driver.implicitly_wait(5)
+    # driver.implicitly_wait(5)
