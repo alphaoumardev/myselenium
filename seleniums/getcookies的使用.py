@@ -1,24 +1,12 @@
-# !/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @Time : 2023/1/16 13:39
-# @Author : firworkseasycold
-# @Email : 1476094297@qq.com
-# @File : selenium_baidu.py
-# @Software: PyCharm
 from selenium import webdriver
-import time
 
 driver = webdriver.Chrome()
 driver.implicitly_wait(10)  # implicitly_wait():隐式等待
 driver.get('https:\\www.baidu.com')
-# 获取所有的 cookies
 print(driver.get_cookies())  # 原始的 cookies  见输出结果 1
 driver.add_cookie({"name": "name", "value": "value"})
-# 再次获取cookies
 print(driver.get_cookies())  # 这时候的 cookies 多了一个我们所添加的  见输出结果2
-# 清空所有的 cookie值
 driver.delete_all_cookies()
-# 再次获取cookies
 print(driver.get_cookies())  # 这时候的 cookies 为空 见输出结果3
 
 """

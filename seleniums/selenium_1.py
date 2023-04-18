@@ -1,16 +1,7 @@
-# !/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @Time : 2023/1/16 12:50
-# @Author : firworkseasycold
-# @Email : 1476094297@qq.com
-# @File : selenium.py
-# @Software: PyCharm
-
-
-# 驱动
 import csv
 import time
 
+from scrapy.http import cookies
 # from scripts.python模拟键盘鼠标操作 import MyLibrary
 from selenium import webdriver
 from selenium.common import NoSuchElementException
@@ -36,15 +27,6 @@ nox_login_brand = "https://cn.noxinfluencer.com/login?userType=brand&service=htt
 
 
 def check_ban():
-    """
-    nox校验被ban
-    div
-    bs4写法，待使用
-    """
-    # ban_str = '<div class="content confirm">'
-    # soup = BeautifulSoup(html, 'html5lib')  # 返回匹配出的所有class名为xxx的div值
-    # if soup.select("div[class='content confirm']"):  # 不为空则说明被ban
-    #     print('time.time()，被办，请更换信息')
     try:
         driver.find_element(By.CSS_SELECTOR, 'div[class="content confirm"]')
         error_tips = {'1000': '已被反爬办了'}
@@ -62,45 +44,23 @@ def driver_get(url):
 def start_driver():
     print('Driver initialization...')
     try:
-        # if tag == 'Firefox':
-        #     options = webdriver.FirefoxOptions()
-        #     driver = webdriver.Firefox(
-        #         executable_path=r"G:\cyspider\webspider\spyder_web\selenium_plugins\geckodriver.exe")
-        # if tag == 'Edge':
-        #     options = webdriver.EdgeOptions()
-        #     driver = webdriver.Edge(executable_path)
-        # elif tag == 'Ie':
-        #     options = webdriver.IeOptions()
-        #     driver = webdriver.Ie(executable_path)
-        # else:
-        #     # 默认chrome
         options = webdriver.ChromeOptions()
         driver = webdriver.Chrome()
-        # # 设定页面加载timeout时长，需要的元素能加载出来就行
-        # driver.set_page_load_timeout(15)
-        # driver.set_script_timeout(15)
         return options, driver
     except Exception as e:
         print('The broswer has NOT started:', e)
 
 
 def nox_login(url=nox_login_brand, user_login='alphaoumardev@outlook.com', pwd_login='bonjouroumar200'):
-    """默认品牌方"""
     if url == nox_login_brand:
         driver.get(url)  # 会导致阻塞，需要异步或者线程来强停,否则会等待加载再继续
-        # thread_get = threading.Thread(target=driver_get,args=url)  # 必须是对象，所以新建个函数driver_get(
-        # )再实例化，直接线程调用driver.get(xxx)不生效，必须封装下 thread_get.start()  #实际使用线程保持，待解决
         time.sleep(12)
-        # frist_handle = driver.current_window_handle  #获取当前窗口句柄
-        # driver.switch_to.window(frist_handle)  #跳转到此句柄窗口
-
-        # 模拟esc按键手动停止加载防止加载过长),线程是因为get过长阻塞导致,需要异步来停止加载，实际多执行几次强停可以不异步
+        frist_handle = driver.current_window_handle  #获取当前窗口句柄
+        driver.switch_to.window(frist_handle)  #跳转到此句柄窗口
         user_id = "email"  # 具体的或者re表达式
         pwd_id = "pwd"
         # pwd_id_text = "pwd-text"  #两个input输入框嵌套
         submit_id = "login-submit"
-
-        print('Login...')
 
         try:
             user_dw = driver.find_element("id", value=user_id)  # 返回element对象
@@ -112,7 +72,6 @@ def nox_login(url=nox_login_brand, user_login='alphaoumardev@outlook.com', pwd_l
             error_tips = {'1002', 'The username has failed'}
             print(error_tips, e)
             return error_tips
-
         try:
             pwd_dw = driver.find_element("id", value=pwd_id)
             pwd_dw.click()
@@ -121,7 +80,6 @@ def nox_login(url=nox_login_brand, user_login='alphaoumardev@outlook.com', pwd_l
             error_tips = {'1003', 'The password has failed'}
             print(error_tips, e)
             return error_tips
-
         try:
             subbutton_dw = driver.find_element(by=By.ID, value=submit_id)
             subbutton_dw.click()
@@ -131,24 +89,14 @@ def nox_login(url=nox_login_brand, user_login='alphaoumardev@outlook.com', pwd_l
             return error_tips
 
         time.sleep(9)  # 必须等待，否则会导致不生效
-        # 模拟按下esc
-        # MyLibrary().keybd_event(27)
-        # MyLibrary().keybd_event(27)
-        # MyLibrary().keybd_event(27)  # 多加几个防止不生效
-
-        # 检查是否被ban
         print('You are banned')
-
-        # 打开新窗口
-        # driver.execute_script("window.open('https://cn.noxinfluencer.com/youtube/channel/UCq-Fj5jknLsUf-MWSy4_brA')") #只有script的opend才可stop
-        # 如果开始get方法跳转页面会自动加载列表页，而且很长会卡住加载
+        driver.execute_script("window.open('https://cn.noxinfluencer.com/youtube/channel/UCq-Fj5jknLsUf-MWSy4_brA')") #只有script的opend才可stop
         # driver.close()  # 关闭当前
-        # return cookies
+        return cookies
     else:
         print('You are logged In')
 
 
-# 设置代理在options里add
 
 # def check_element_exists(xpath):
 #     """检查是否存在元素"""

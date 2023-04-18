@@ -14,7 +14,7 @@ web = 'https://tinder.com/'
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "localhost:9222")
-driver = webdriver.Chrome(service=service, options=options)
+driver = webdriver.Chrome()
 
 driver.get(web)
 time.sleep(3)
@@ -31,7 +31,7 @@ for i in range(number_of_swipes):
 
         send_message_button = driver.find_element(by='xpath', value='//button/span[text()="Send"]')
         send_message_button.click()
-        time.sleep(1)
+        # time.sleep(1)
 
         close_its_match_window = driver.find_element(by='xpath', value='//button[@title="Back to Tinder"]')
         close_its_match_window.click()

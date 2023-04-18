@@ -1,10 +1,4 @@
-# !/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @Time : 2023/1/18 13:08
-# @Author : firworkseasycold
-# @Email : 1476094297@qq.com
-# @File : nox_wh_spider.py
-# @Software: PyCharm
+
 import csv
 import time
 
