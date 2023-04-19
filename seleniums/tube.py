@@ -2,6 +2,7 @@ import csv
 
 from selenium import webdriver
 
+api=''
 # create a webdriver instance
 driver = webdriver.Chrome()
 

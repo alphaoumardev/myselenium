@@ -1,35 +1,40 @@
-from selenium.webdriver.common.by import By
+import csv
 
+from googleapiclient.discovery import build
 
-def add_attribute(driver, element_obj, attribute_name, value):
-    driver.execute_script("arguments[0].%s=arguments[1]" % attribute_name, element_obj, value)
+api_key = 'AIzaSyBdwjJNyKfgs25Suh9gfXfz7Uxw00ztc-0'
+youtube = build('youtube', 'v3', developerKey=api_key)
 
+next_page_token = None
+channels = []
+while len(channels) < 5000:
+    request = youtube.channels().list(
+        part='snippet,statistics',
+        # chart='mostSubscribed',
+        maxResults=50,
+        pageToken=next_page_token
+    )
+    response = request.execute()
+    channels += response['items']
+    next_page_token = response.get('nextPageToken')
+    if not next_page_token:
+        break
 
-def set_attribute(driver, element_obj, attribute_name, value):
-    driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", element_obj, attribute_name, value)
-
-
-def get_attribute(element_obj, attribute_name):
-    return element_obj.get_attribute(attribute_name)
-
-
-def remove_attribute(driver, element_obj, attribute_name):
-    driver.execute_script("arguments[0].removeAttribute(arguments[1])",
-                          element_obj, attribute_name)
-
-
-if __name__ == '__main__':
-    from selenium import webdriver
-
-    options = webdriver.ChromeOptions()
-
-    driver = webdriver.Chrome()
-
-    driver.get('https://www.baidu.com')
-
-    # element_obj = driver.find_element_by_xpath('//*[@id="su"]') #selenium版本低于4
-    element_obj = driver.find_element(By.XPATH,'//*[@id="su"]')
-
-    js = 'arguments[0].setAttribute(arguments[1],arguments[2])'
-
-    driver.execute_script(js, element_obj, 'value', '就不点击')
+with open('channels.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(['Name', 'Views', 'Latest Video Links', 'Subscribers', 'Description', 'Links'])
+    for channel in channels:
+        channel_name = channel['snippet']['title']
+        channel_views = channel['statistics']['viewCount']
+        channel_subscribers = channel['statistics']['subscriberCount']
+        channel_description = channel['snippet']['description']
+        channel_link = f"https://www.youtube.com/channel/{channel['id']}"
+        video_request = youtube.search().list(
+            part='id',
+            channelId=channel['id'],
+            maxResults=3,
+            order='date'
+        )
+        video_response = video_request.execute()
+        video_links = [f"https://www.youtube.com/watch?v={video['id']['videoId']}" for video in video_response['items']]
+        writer.writerow([channel_name, channel_views, video_links, channel_subscribers, channel_description, channel_link])
