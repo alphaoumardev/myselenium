@@ -1,7 +1,7 @@
 from googleapiclient.discovery import build
 
-def main():
-    api_key = "AIzaSyBdwjJNyKfgs25Suh9gfXfz7Uxw00ztc-0"
+api_key = "AIzaSyA7l-gbXF7MSg3R8szRrJNckQnyWBbGaGg"
+try:
 
     youtube = build('youtube', 'v3', developerKey=api_key)
 
@@ -10,6 +10,6 @@ def main():
 
     print("res")
     print(response)
+except Exception as e:
+    print(e)
 
-if __name__ == "__main__":
-    main()

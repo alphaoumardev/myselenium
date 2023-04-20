@@ -2,7 +2,7 @@ import csv
 
 from googleapiclient.discovery import build
 
-api_key = 'AIzaSyBdwjJNyKfgs25Suh9gfXfz7Uxw00ztc-0'
+api_key = ''
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 next_page_token = None
