@@ -24,8 +24,6 @@ for i in links:
 
 link = driver.current_url
 
-# video_links = driver.find_element(by="xpath", value='//a[@class="yt-simple-endpoint style-scope ytd-grid-video-renderer"]')
-# video_links = [link.get_attribute('href') for link in video_links[:3]]
 time.sleep(5)
 driver.get("https://www.youtube.com/@SampsonBoatCo/videos")
 
@@ -33,7 +31,7 @@ video_links = []
 videos = driver.find_elements(by='xpath', value='//*[@id="thumbnail"]')
 for video in videos[:3]:
     video_links.append(video.get_attribute('href'))
-    
+
 info = [avatar, name, c_link, subscribers_count, video_count, description, joined, link] + video_links
 
 # //*[@id="thumbnail"]
