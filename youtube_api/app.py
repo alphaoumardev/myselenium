@@ -5,6 +5,6 @@
 #         f.write(channel_id + '\n')
 # print(channel_ids)
 
-with open('channel_ids.txt') as f:
-    ids = f.read().splitlines()
-print(ids)
+with open('category.txt') as f:
+    username = f.read().splitlines()
+print(username)

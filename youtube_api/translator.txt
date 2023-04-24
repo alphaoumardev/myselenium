@@ -1,0 +1,1 @@
+To use this script, simply replace 'example.txt' with the path to the txt file you want to translate, and run the script. It will create two new txt files in the same directory as the original file, one containing the French translation and the other containing the Spanish translation.
