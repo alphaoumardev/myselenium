@@ -59,3 +59,9 @@ uritemplate==4.1.1
 urllib3==1.26.15
 wsproto==1.2.0
 zipp==3.15.0
+
+pandas~=2.0.0
+Scrapy~=2.8.0
+itemloaders~=1.1.0
+w3lib~=2.1.1
+itemadapter~=0.8.0
