@@ -54,7 +54,7 @@ with open('channels2.csv', 'w', newline='') as file:
                 # driver.execute_script("document.getElementById('email').style.display = 'block';")
                 email = driver.find_element(by='xpath', value='//*[@id="email"]').get_attribute('href')
             except:
-                print('email not found for this channel', channel_id)
+                print('email not found for this channel')
             driver.implicitly_wait(3)
 
             driver.get(f'https://www.youtube.com/channel/{channel_id}/videos')
