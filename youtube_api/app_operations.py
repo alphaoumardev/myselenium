@@ -4,17 +4,16 @@
 #     for channel_id in channel_ids:
 #         f.write(channel_id + '\n')
 # print(channel_ids)
-with open('channel_ids.txt', 'r') as f:
+with open('ids.txt', 'r') as f:
     count = 0
     # for li in f:
     #     count += 1
     # print(count)
     username = f.read().splitlines()
     ids = [line.strip() for line in f]
-print(ids)
+    print(username)
 
-
-#To remove the duplicate elements
+# To remove the duplicate elements
 # with open('category.txt', 'r') as file:
 #     data = file.readlines()
 #
@@ -23,7 +22,7 @@ print(ids)
 # with open('category.txt', 'w') as file:
 #     file.writelines(data)
 
-#To remove the whitespace and replace it with + for YouTube search
+# To remove the whitespace and replace it with + for YouTube search
 # with open('category1.txt') as f:
 #     lines = f.readlines()
 # # Remove empty lines
