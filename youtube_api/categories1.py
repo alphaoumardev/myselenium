@@ -8,7 +8,7 @@ tags = ['music', 'gaming', 'cooking', 'fashion', 'travel']
 driver = webdriver.Chrome()
 
 # Open a CSV file to store the results
-with open('channels.csv', mode='w', newline='') as file:
+with open('channels_username.csv', mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Channel'])
 
