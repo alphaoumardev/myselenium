@@ -16,7 +16,7 @@ with open('channels.csv', mode='w', newline='') as file:
     for tag in tags:
         # Load the search results page for the current tag
         driver.get(f'https://www.youtube.com/results?search_query={tag}&sp=EgIQAg%253D%253D')
-        time.sleep(2) # Wait for the page to load
+        time.sleep(2)  # Wait for the page to load
 
         # Scroll down the page to load more channels
         last_height = driver.execute_script('return document.documentElement.scrollHeight')

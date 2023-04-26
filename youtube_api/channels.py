@@ -10,7 +10,9 @@ channels_id = df['IDS'].tolist()
 with open('channel_ids.txt', 'r') as f:
     ids = f.read().splitlines()
 # channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
-# UCB0d0JLn1WcGYcwwZ87d2LA, UCBR8-60-B28hp2BmDPdntcQ
+categories = ['sport', 'Arcade', 'Board']
+channelss = ['UC-lHJZR3Gqxm24_Vd_AJ5Yw', 'UCq-Fj5jknLsUf-MWSy4_brA', 'UCIwFjwMjI0y7PDBVEO9-bkQ']
+
 channels_ids = ['UC-lHJZR3Gqxm24_Vd_AJ5Yw', 'UCq-Fj5jknLsUf-MWSy4_brA', 'UCIwFjwMjI0y7PDBVEO9-bkQ',
                 'UC295-Dw_tDNtZXFeAPAW6Aw', 'UCJ5v_MCY6GNUBTO8-D3XoAg', 'UCRijo3ddMTht_IHyNSNXpNQ',
                 'UC0C-w0YjGpqDXGB8IHb662A', 'UCpEhnqL0y41EpW2TvWAHD7Q', 'UCfM3zsQsOnfWNUppiycmBuw',
@@ -85,41 +87,34 @@ channels_ids = ['UC-lHJZR3Gqxm24_Vd_AJ5Yw', 'UCq-Fj5jknLsUf-MWSy4_brA', 'UCIwFjw
 driver = webdriver.Chrome()
 driver.maximize_window()
 
-# Create a new CSV file to store the data
 with open('channels2.csv', 'w', newline='') as file:
     writer = csv.writer(file)
 
     # Write the header row
-    writer.writerow(['Platform', 'Avatar', 'Channel Name', 'Username', 'Channel Url', 'Location', 'Subscribers Count',
-                     'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
-                     '3 Latest Videos Title',
-                     '3 Latest videos image'])  # 'Latest Video 1', 'Latest Video 2', 'Latest Video 3'
+    writer.writerow(
+        ['Category', 'Platform', 'Avatar', 'Channel Name', 'Username', 'Channel Url', 'Location', 'Subscribers Count',
+         'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
+         '3 Latest Videos Title',
+         '3 Latest videos image'])
 
-    # Loop through each channel username and extract information
-    for channel_id in channels_ids:
-
-        # Visit the About page for the channel
+    for i, channel_id in enumerate(channelss):
         try:
             driver.get(f'https://www.youtube.com/channel/{channel_id}/about')
             driver.refresh()
-            # Extract the channel name, subscribers, views, and description
 
+            category = categories[i]
             platform = 'Youtube'
             avatar = driver.find_element(By.XPATH, value='//*[@id="img"]').get_attribute('src')
             name = driver.find_element(by="xpath", value='//*[@id="text"]').text
-            channel_username = driver.find_element(by="xpath",
-                                                   value='/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div[3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div[1]/yt-formatted-string[1]').text
             channel_url = driver.current_url
-            location = driver.find_element(by='xpath',
-                                           value='//*[@id="details-container"]/table/tbody/tr[2]/td[2]').text
+            location = driver.find_element(by='xpath', value='//*[@id="details-container"]/table/tbody/tr[2]/td[2]').text
             subscribers_count = driver.find_element(by="xpath", value='//*[@id="subscriber-count"]').text
             video_count = driver.find_element(by="xpath", value='//*[@id="videos-count"]/span[1]').text
             description = driver.find_element(by="xpath", value='//*[@id="description-container"]').text
-            joined = driver.find_element(by="xpath",
-                                         value='//*[@id="right-column"]/yt-formatted-string[2]/span[2]').text
+            joined = driver.find_element(by="xpath", value='//*[@id="right-column"]/yt-formatted-string[2]/span[2]').text
             views = driver.find_element(by='xpath', value='//*[@id="right-column"]/yt-formatted-string[3]').text
             try:
-                driver.execute_script("document.getElementById('email').style.display = 'block';")
+                # driver.execute_script("document.getElementById('email').style.display = 'block';")
                 email = driver.find_element(by='xpath', value='//*[@id="email"]').get_attribute('href')
             except:
                 print('email not found for this channel', channel_id)
@@ -128,6 +123,7 @@ with open('channels2.csv', 'w', newline='') as file:
             driver.get(f'https://www.youtube.com/channel/{channel_id}/videos')
             driver.refresh()
             driver.implicitly_wait(1)
+
             # The latest videos url
             latest_videos_url = driver.find_elements(by='xpath', value='//*[@id="video-title-link"]')
             latest_video_url = [video.get_attribute('href') for video in latest_videos_url][:3]
@@ -142,7 +138,7 @@ with open('channels2.csv', 'w', newline='') as file:
 
             # Write the data to the CSV file
             writer.writerow(
-                [platform, avatar, name, channel_username, channel_url, location, subscribers_count, video_count,
+                [category, platform, avatar, name, channel_url, location, subscribers_count, video_count,
                  description, joined, views, email, latest_video_url, latest_video_title,
                  latest_video_image])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
             driver.implicitly_wait(5)

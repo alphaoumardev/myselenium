@@ -3,10 +3,8 @@ import csv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-# Replace these with the 5 YouTube channel usernames you want to extract information from
-# channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
+channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
 channel_id = 'UC-lHJZR3Gqxm24_Vd_AJ5Yw'
-# s = Service('/usr/local/bin/chromedriver')
 driver = webdriver.Chrome()
 driver.maximize_window()
 
@@ -23,7 +21,7 @@ with open('channel.csv', 'w', newline='') as file:
     # Loop through each channel username and extract information
     # Visit the About page for the channel
     try:
-        driver.get(f'https://www.youtube.com/@javascriptmastery/about')
+        driver.get(f'https://www.youtube.com/@mrbeast/about')
         driver.refresh()
         # driver.find_element(by='xpath', value='//*[@id="tabsContent"]/tp-yt-paper-tab[7]/div/div[1]').click()
         # about_tab = driver.find_element(by='xpath', value="//a[@href='/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw/about']")
@@ -34,9 +32,8 @@ with open('channel.csv', 'w', newline='') as file:
         # try:
 
         platform = 'Youtube'
-        username = 'm'
-        # driver.find_element(by="xpath",
-        #                            value='/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div[3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div[1]/yt-formatted-string[1]').text
+        username = driver.find_element(by="xpath",
+                                       value='/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div[3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div[1]/yt-formatted-string[1]').text
         avatar = driver.find_element(By.XPATH, value='//*[@id="img"]').get_attribute('src')
         name = driver.find_element(by="xpath", value='//*[@id="text"]').text
         channel_url = driver.current_url
