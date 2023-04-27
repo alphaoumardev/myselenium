@@ -24,7 +24,7 @@ options.add_argument('--disable-cookies')
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 
-with open('c_ids.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
+with open('left.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
     reader = csv.reader(f)
     writer = csv.writer(file)
 

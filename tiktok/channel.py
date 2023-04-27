@@ -9,7 +9,7 @@ driver = webdriver.Chrome()
 driver.maximize_window()
 
 # Create a new CSV file to store the data
-with open('channel.csv', 'w', newline='') as file:
+with open('channel.csv', 'a', newline='') as file:
     writer = csv.writer(file)
 
     # Write the header row
