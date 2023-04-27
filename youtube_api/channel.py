@@ -3,15 +3,12 @@ import csv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-# Replace these with the 5 YouTube channel usernames you want to extract information from
 # channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
 channel_id = 'UC-lHJZR3Gqxm24_Vd_AJ5Yw'
-# s = Service('/usr/local/bin/chromedriver')
 driver = webdriver.Chrome()
 driver.maximize_window()
 
-# Create a new CSV file to store the data
-with open('channel.csv', 'w', newline='') as file:
+with open('channel.csv', 'a', newline='') as file:
     writer = csv.writer(file)
 
     # Write the header row
@@ -20,18 +17,9 @@ with open('channel.csv', 'w', newline='') as file:
                      '3 Latest Videos Title',
                      '3 Latest videos image'])  # 'Latest Video 1', 'Latest Video 2', 'Latest Video 3'
 
-    # Loop through each channel username and extract information
-    # Visit the About page for the channel
     try:
         driver.get(f'https://www.youtube.com/@javascriptmastery/about')
         driver.refresh()
-        # driver.find_element(by='xpath', value='//*[@id="tabsContent"]/tp-yt-paper-tab[7]/div/div[1]').click()
-        # about_tab = driver.find_element(by='xpath', value="//a[@href='/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw/about']")
-        # about_tab.click()
-        # driver.find_element(By.XPATH, value='//*[@id="tabsContent"]/tp-yt-paper-tab[7]/div').click()
-        # driver.refresh()
-        # Extract the channel name, subscribers, views, and description
-        # try:
 
         platform = 'Youtube'
         username = 'm'

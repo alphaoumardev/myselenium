@@ -6,15 +6,18 @@ def read_file(filename):
     with open(filename, 'r', encoding='utf-8') as f:
         return f.read()
 
+
 # Function to write translated text to a txt file
 def write_file(filename, text):
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(text)
 
-# Translate text to French and return translated text
+
+# Translate text to French a return translated text
 def translate_to_french(text):
     translator = Translator()
     return translator.translate(text, src='en', dest='fr')
+
 
 # Translate text to Spanish and return translated text
 # def translate_to_spanish(text):
@@ -39,5 +42,7 @@ def translate_file(filename):
         print('Translation complete. Translated files saved as {}_fr.txt and {}_es.txt.'.format(filename, filename))
     except Exception as e:
         print('error', e)
+
+
 # Example usage
 translate_file('category.txt')

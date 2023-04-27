@@ -15,31 +15,33 @@ options.add_argument('--disable-cookies')
 # channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
 # categories = ['sport', 'Arcade', 'Board']
 
-with open('ids.txt', 'r') as f:
-    ids = f.read().splitlines()
-
-with open('tags.txt', 'r') as f:
-    tags = f.read().splitlines()
+# with open('ids.txt', 'r') as f:
+#     ids = f.read().splitlines()
+#
+# with open('categories.txt', 'r') as f:
+#     tags = f.read().splitlines()
 
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 
-with open('channels2.csv', 'a', newline='') as file:
+with open('c_ids.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
+    reader = csv.reader(f)
     writer = csv.writer(file)
 
     # Write the header row
     writer.writerow(
-        ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Username', 'Channel Url', 'Location', 'Subscribers Count',
+        ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Channel Url', 'Location', 'Subscribers Count',
          'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
          '3 Latest Videos Title',
          '3 Latest videos image'])
 
-    for i, channel_id in enumerate(ids):
+    for row in reader:
         try:
-            driver.get(f'https://www.youtube.com/channel/{channel_id}/about')
+
+            driver.get(f'https://www.youtube.com/channel/{row[1]}/about')
             driver.refresh()
 
-            tag = tags[i]
+            tag = row[0]
             platform = 'Youtube'
             avatar = driver.find_element(By.XPATH, value='//*[@id="img"]').get_attribute('src')
             name = driver.find_element(by="xpath", value='//*[@id="text"]').text
@@ -57,7 +59,7 @@ with open('channels2.csv', 'a', newline='') as file:
                 print('email not found for this channel')
             driver.implicitly_wait(3)
 
-            driver.get(f'https://www.youtube.com/channel/{channel_id}/videos')
+            driver.get(f'https://www.youtube.com/channel/{row[1]}/videos')
             driver.refresh()
             driver.implicitly_wait(1)
 
@@ -80,6 +82,6 @@ with open('channels2.csv', 'a', newline='') as file:
                  latest_video_image])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
             driver.implicitly_wait(5)
         except:
-            print('Channel not Found', channel_id)
+            print(row)
 
 # driver.quit()

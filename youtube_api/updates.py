@@ -13,7 +13,9 @@ with open('updates.csv', 'w', newline='') as file:
 
     # Write the header row
     writer.writerow(['Platform', 'Avatar', 'Channel Name', 'Username', 'Channel Url', 'Location', 'Subscribers Count',
-                     'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url', '3 Latest Videos Title', '3 Latest videos image']) #'Latest Video 1', 'Latest Video 2', 'Latest Video 3'
+                     'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
+                     '3 Latest Videos Title',
+                     '3 Latest videos image'])  # 'Latest Video 1', 'Latest Video 2', 'Latest Video 3'
 
     # Loop through each channel username and extract information
     for username in channel_usernames:
@@ -26,7 +28,8 @@ with open('updates.csv', 'w', newline='') as file:
         platform = 'Youtube'
         avatar = driver.find_element(By.XPATH, value='//*[@id="img"]').get_attribute('src')
         name = driver.find_element(by="xpath", value='//*[@id="text"]').text
-        channel_username = driver.find_element(by="xpath", value='/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div[3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div[1]/yt-formatted-string[1]').text
+        channel_username = driver.find_element(by="xpath",
+                                               value='/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div[3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div[1]/yt-formatted-string[1]').text
         channel_url = driver.current_url
         location = driver.find_element(by='xpath', value='//*[@id="details-container"]/table/tbody/tr[2]/td[2]').text
         subscribers_count = driver.find_element(by="xpath", value='//*[@id="subscriber-count"]').text
@@ -47,7 +50,7 @@ with open('updates.csv', 'w', newline='') as file:
         latest_videos_url = driver.find_elements(by='xpath', value='//*[@id="video-title-link"]')
         latest_video_url = [video.get_attribute('href') for video in latest_videos_url][:3]
 
-        #The latest videos title
+        # The latest videos title
         latest_videos_title = driver.find_elements(by='xpath', value='//*[@id="video-title"]')
         latest_video_title = [title.get_attribute('aria-label') for title in latest_videos_title[:3]]
 
@@ -56,7 +59,10 @@ with open('updates.csv', 'w', newline='') as file:
         latest_video_image = [image.get_attribute('src') for image in latest_videos_image[:3]]
 
         # Write the data to the CSV file
-        writer.writerow([platform, avatar, name, channel_username, channel_url, location, subscribers_count, video_count, description, joined, views, email, latest_video_url, latest_video_title,  latest_video_image]) #latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
+        writer.writerow(
+            [platform, avatar, name, channel_username, channel_url, location, subscribers_count, video_count,
+             description, joined, views, email, latest_video_url, latest_video_title,
+             latest_video_image])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
         driver.implicitly_wait(8)
         # except Exception as e:
         #     raise e

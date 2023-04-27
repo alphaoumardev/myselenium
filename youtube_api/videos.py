@@ -21,7 +21,7 @@ for video in videos[:3]:
 driver.quit()
 
 # Write the video links to a CSV file
-with open('video_links.csv', mode='w', newline='') as file:
+with open('video_links.csv', mode='a', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Video Links'])
     for link in video_links:

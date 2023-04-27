@@ -34,10 +34,12 @@ driver = webdriver.Chrome()
 channels = []
 results = driver.find_elements(by=By.XPATH, value="//div[@id='contents']//ytd-channel-renderer")
 for result in results[:50]:
-    channel_name = result.find_element(by=By.XPATH,value=".//a[@id='main-link']/yt-formatted-string").text
-    channel_url = "https://www.youtube.com" + result.find_element(by=By.XPATH, value=".//a[@id='main-link']").get_attribute("href")
-    channel_subscribers = result.find_element(by=By.XPATH, value=".//yt-formatted-string[contains(@aria-label, 'subscribers')]").\
-                         get_attribute("aria-label").split()[0]
+    channel_name = result.find_element(by=By.XPATH, value=".//a[@id='main-link']/yt-formatted-string").text
+    channel_url = "https://www.youtube.com" + result.find_element(by=By.XPATH,
+                                                                  value=".//a[@id='main-link']").get_attribute("href")
+    channel_subscribers = \
+    result.find_element(by=By.XPATH, value=".//yt-formatted-string[contains(@aria-label, 'subscribers')]"). \
+        get_attribute("aria-label").split()[0]
     channels.append((channel_name, channel_url, channel_subscribers))
 
 # Save the data in a CSV file
@@ -47,4 +49,4 @@ with open('outdoor_adventures.csv', 'w', newline='') as file:
     writer.writerows(channels)
 
 # Close the Chrome driver
-# driver.quit()
+# .quit()
