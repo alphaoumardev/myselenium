@@ -20,7 +20,7 @@ while len(channels) < 5000:
     if not next_page_token:
         break
 
-with open('channels.csv', 'w', newline='', encoding='utf-8') as f:
+with open('channels_username.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(['Name', 'Views', 'Latest Video Links', 'Subscribers', 'Description', 'Links'])
     for channel in channels:
