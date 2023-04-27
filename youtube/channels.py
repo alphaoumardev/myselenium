@@ -24,7 +24,7 @@ options.add_argument('--disable-cookies')
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 
-with open('left.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
+with open('c_ids.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
     reader = csv.reader(f)
     writer = csv.writer(file)
 
@@ -32,12 +32,10 @@ with open('left.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
     writer.writerow(
         ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Channel Url', 'Location', 'Subscribers Count',
          'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
-         '3 Latest Videos Title',
-         '3 Latest videos image'])
+         '3 Latest Videos Title', '3 Latest videos image', 'Other Links', 'Link Title'])
 
     for row in reader:
         try:
-
             driver.get(f'https://www.youtube.com/channel/{row[1]}/about')
             driver.refresh()
 
@@ -75,11 +73,21 @@ with open('left.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
             latest_videos_image = driver.find_elements(by='xpath', value='//*[@id="thumbnail"]/yt-image/img')
             latest_video_image = [image.get_attribute('src') for image in latest_videos_image[:3]]
 
+            other_links = driver.find_element(by='xpath', value='//*[@id="secondary-links"]')
+            other_link = [url.get_attribute('src') for url in other_links[0:]]
+            # Write the data to the CSV file
+            try:
+                other_links = driver.find_elements(by='xpath', value='//*[@id="secondary-links"]/a')
+                other_link = [url.get_attribute('href') for url in other_links]
+                other_title = [title.get_attribute('title') for title in other_links]
+            except:
+                print('')
             # Write the data to the CSV file
             writer.writerow(
                 [tag, platform, avatar, name, channel_url, location, subscribers_count, video_count,
                  description, joined, views, email, latest_video_url, latest_video_title,
-                 latest_video_image])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
+                 latest_video_image, other_link,
+                 other_title])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
             driver.implicitly_wait(5)
         except:
             print(row)

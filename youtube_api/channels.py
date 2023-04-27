@@ -29,10 +29,10 @@ with open('channels2.csv', 'a', newline='') as file:
 
     # Write the header row
     writer.writerow(
-        ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Username', 'Channel Url', 'Location', 'Subscribers Count',
+        ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Channel Url', 'Location', 'Subscribers Count',
          'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
          '3 Latest Videos Title',
-         '3 Latest videos image'])
+         '3 Latest videos image', 'Links', 'Other Platform'])
 
     for i, channel_id in enumerate(ids):
         try:
@@ -73,11 +73,18 @@ with open('channels2.csv', 'a', newline='') as file:
             latest_videos_image = driver.find_elements(by='xpath', value='//*[@id="thumbnail"]/yt-image/img')
             latest_video_image = [image.get_attribute('src') for image in latest_videos_image[:3]]
 
+            try:
+                other_links = driver.find_elements(by='xpath', value='//*[@id="secondary-links"]/a')
+                other_link = [url.get_attribute('href') for url in other_links]
+                other_title = [title.get_attribute('title') for title in other_links]
+            except:
+                print('')
             # Write the data to the CSV file
             writer.writerow(
                 [tag, platform, avatar, name, channel_url, location, subscribers_count, video_count,
                  description, joined, views, email, latest_video_url, latest_video_title,
-                 latest_video_image])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
+                 latest_video_image, other_link,
+                 other_title])  # latest_video_urls[0], latest_video_urls[1], latest_video_urls[2]
             driver.implicitly_wait(5)
         except:
             print('Channel not Found', channel_id)
