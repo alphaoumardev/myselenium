@@ -12,19 +12,21 @@ options.add_argument('--disable-extensions')
 tags = ['fashion', 'travel', 'music', 'gaming', 'cooking', ]
 
 driver = webdriver.Chrome(options=options)
+driver.get(f"https://www.tiktok.com/")
 driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
-driver.implicitly_wait(5)
+
 driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[1]/input').send_keys(
     'alphaoumardev@outlook.com')
 driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[2]/div/input').send_keys(
     'Bonjouroumar200@')
 driver.implicitly_wait(5)
 driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
-# driver.get(f"https://www.tiktok.com/")
+driver.get(f"https://www.tiktok.com/")
+driver.implicitly_wait(43)
 # Login
-driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
+# driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-with open('channels.csv', mode='w', newline='') as file:
+with open('tikt.csv', mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Channel'])
 
