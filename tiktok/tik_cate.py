@@ -12,55 +12,66 @@ options.add_argument('--disable-extensions')
 tags = ['fashion', 'travel', 'music', 'gaming', 'cooking', ]
 
 driver = webdriver.Chrome(options=options)
-driver.get(f"https://www.tiktok.com/")
-driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
-
-driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[1]/input').send_keys(
-    'alphaoumardev@outlook.com')
-driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[2]/div/input').send_keys(
-    'Bonjouroumar200@')
-driver.implicitly_wait(5)
-driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
-driver.get(f"https://www.tiktok.com/")
-driver.implicitly_wait(43)
+# driver.get(f"https://www.tiktok.com/")
+# driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
+#
+# driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[1]/input').send_keys(
+#     'alphaoumardev@outlook.com')
+# driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[2]/div/input').send_keys(
+#     'Bonjouroumar200@')
+driver.refresh()
+# time.sleep(20)
+# driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
+# driver.get(f"https://www.tiktok.com/")
+# driver.implicitly_wait(43)
 # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-with open('tikt.csv', mode='w', newline='') as file:
+with open('tiktok.csv', mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Channel'])
 
-    for tag in tags:
-        driver.get(f"https://www.tiktok.com/search/user?q={tag}&t=1682423555521")
-        driver.refresh()
-
-        driver.implicitly_wait(15)  # Wait for the page to load
-        # time.sleep(15)
-        try:
-            driver.find_element(by='xpath', value='//*[@id="verify-bar-close"]').click()
+    driver.get(f"https://www.tiktok.com/")
+    time.sleep(20)
+    try:
+        for tag in tags:
+            driver.get(f"https://www.tiktok.com/search/user?q={tag}&t=1682423555521")
+            time.sleep(10)
             driver.refresh()
-
-            # Login
-            driver.find_element(by='xpath',
-                                value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-        except:
-            print("The popup is bloking the page")
-        time.sleep(2)
-
-        # Click the "Load More" button until all channels are displayed
-        while True:
-            try:
-                # load_more_button = driver.find_element(by='xpath', value='//*[@id="main"]/div[2]/div/div[2]/div/div/div[2]/div/div/div/div[2]/button')
-                load_more_button = driver.find_element(by='xpath',
-                                                       value='//*[@id="tabs-0-panel-search_account"]/div[11]/button')
-                load_more_button.click()
+            # try:
+            #     driver.find_element(by='xpath', value='//*[@id="verify-bar-close"]').click()
+            #     driver.refresh()
+            #     # Login
+            #     # driver.find_element(by='xpath',value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
+            # except:
+            #     print("The popup is bloking the page")
+            # time.sleep(2)
+            last_height = driver.execute_script('return document.documentElement.scrollHeight')
+            while True:
+                driver.execute_script('window.scrollTo(0, document.documentElement.scrollHeight);')
                 time.sleep(2)
-            except:
-                break
-
-        channel_elements = driver.find_elements('xpath', '//*[@id="search_user-item-user-link-0"]/a[2]/p[1]')
-
-        channel_names = [elem.text for elem in channel_elements]
-        for channel_name in channel_names:
-            writer.writerow([tag, channel_name])
-    # driver.implicitly_wait(10)
+                new_height = driver.execute_script('return document.documentElement.scrollHeight')
+                if new_height == last_height:
+                    break
+                last_height = new_height
+                for i in range(1, 50):
+                    try:
+                        driver.find_element(by='xpath',
+                                            value='//*[@id="tabs-0-panel-search_account"]/div[{}1]/button'.format(
+                                                i)).click()
+                        time.sleep(2)
+                    except:
+                        continue
+                    try:
+                        for n in range(0, 500):
+                            try:
+                                channel_elements = driver.find_element(by='xpath',
+                                                                       value='//*[@id="search_user-item-user-link-{}"]/a[1]'.format(
+                                                                           n)).get_attribute('href')
+                                writer.writerow([tag, channel_elements])
+                            except Exception as e:
+                                print("404", e)
+                    except:
+                        break
+    except Exception as e:
+        print(e)
