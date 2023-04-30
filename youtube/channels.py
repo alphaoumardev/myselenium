@@ -15,17 +15,11 @@ options.add_argument('--disable-cookies')
 # channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
 # categories = ['sport', 'Arcade', 'Board']
 
-# with open('ids.txt', 'r') as f:
-#     ids = f.read().splitlines()
-#
-# with open('categories.txt', 'r') as f:
-#     tags = f.read().splitlines()
-
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 
-with open('c_ids.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
-    reader = csv.reader(f)
+with open('c_id.csv', 'r', encoding='utf-8') as ide, open('channels1.csv', 'a', newline='', encoding='utf-8') as file:
+    reader = csv.reader(ide)
     writer = csv.writer(file)
 
     # Write the header row
@@ -33,7 +27,6 @@ with open('c_ids.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
         ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Channel Url', 'Location', 'Subscribers Count',
          'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
          '3 Latest Videos Title', '3 Latest videos image', 'Other Links', 'Link Title'])
-
     for row in reader:
         try:
             driver.get(f'https://www.youtube.com/channel/{row[1]}/about')
@@ -41,47 +34,77 @@ with open('c_ids.csv', 'r') as f, open('channels.csv', 'a', newline='') as file:
 
             tag = row[0]
             platform = 'Youtube'
-            avatar = driver.find_element(By.XPATH, value='//*[@id="img"]').get_attribute('src')
-            name = driver.find_element(by="xpath", value='//*[@id="text"]').text
-            channel_url = driver.current_url
-            location = driver.find_element(by='xpath', value='//*[@id="details-container"]/table/tbody/tr[2]/td[2]').text
-            subscribers_count = driver.find_element(by="xpath", value='//*[@id="subscriber-count"]').text
-            video_count = driver.find_element(by="xpath", value='//*[@id="videos-count"]/span[1]').text
-            description = driver.find_element(by="xpath", value='//*[@id="description-container"]').text
-            joined = driver.find_element(by="xpath", value='//*[@id="right-column"]/yt-formatted-string[2]/span[2]').text
+            try:
+                avatar = driver.find_element(By.XPATH, value='//*[@id="img"]').get_attribute('src')
+            except:
+                avatar = ''
+            try:
+                name = driver.find_element(by="xpath", value='//*[@id="text"]').text
+            except:
+                name = ''
+            try:
+                channel_url = driver.current_url
+            except:
+                channel_url = ''
+            try:
+                location = driver.find_element(by='xpath',  value='//*[@id="details-container"]/table/tbody/tr[2]/td[2]').text
+            except:
+                location = "USA"
+            try:
+                subscribers_count = driver.find_element(by="xpath", value='//*[@id="subscriber-count"]').text
+            except:
+                subscribers_count = ''
+            try:
+                video_count = driver.find_element(by="xpath", value='//*[@id="videos-count"]/span[1]').text
+            except:
+                video_count = ''
+            try:
+                description = driver.find_element(by="xpath", value='//*[@id="description-container"]').text
+            except:
+                description = ''
+            try:
+                joined = driver.find_element(by="xpath",
+                                             value='//*[@id="right-column"]/yt-formatted-string[2]/span[2]').text
+            except:
+                joined = 'few years ago'
             views = driver.find_element(by='xpath', value='//*[@id="right-column"]/yt-formatted-string[3]').text
             try:
                 # driver.execute_script("document.getElementById('email').style.display = 'block';")
                 email = driver.find_element(by='xpath', value='//*[@id="email"]').get_attribute('href')
             except:
-                print('email not found for this channel')
-            driver.implicitly_wait(3)
+                email = 'N/A'
+            driver.implicitly_wait(2)
 
             driver.get(f'https://www.youtube.com/channel/{row[1]}/videos')
             driver.refresh()
-            driver.implicitly_wait(1)
+            driver.implicitly_wait(3)
 
             # The latest videos url
-            latest_videos_url = driver.find_elements(by='xpath', value='//*[@id="video-title-link"]')
-            latest_video_url = [video.get_attribute('href') for video in latest_videos_url][:3]
-
-            # The latest videos title
-            latest_videos_title = driver.find_elements(by='xpath', value='//*[@id="video-title"]')
-            latest_video_title = [title.get_attribute('aria-label') for title in latest_videos_title[:3]]
-
-            # The latest videos image
-            latest_videos_image = driver.find_elements(by='xpath', value='//*[@id="thumbnail"]/yt-image/img')
-            latest_video_image = [image.get_attribute('src') for image in latest_videos_image[:3]]
-
-            other_links = driver.find_element(by='xpath', value='//*[@id="secondary-links"]')
-            other_link = [url.get_attribute('src') for url in other_links[0:]]
+            try:
+                latest_videos_url = driver.find_elements(by='xpath', value='//*[@id="video-title-link"]')
+                latest_video_url = [video.get_attribute('href') for video in latest_videos_url][:3]
+            except:
+                latest_video_url = ['']
+            try:
+                # The latest videos title
+                latest_videos_title = driver.find_elements(by='xpath', value='//*[@id="video-title"]')
+                latest_video_title = [title.get_attribute('aria-label') for title in latest_videos_title[:3]]
+            except:
+                latest_video_title = ['']
+            try:
+                # The latest videos image
+                latest_videos_image = driver.find_elements(by='xpath', value='//*[@id="thumbnail"]/yt-image/img')
+                latest_video_image = [image.get_attribute('src') for image in latest_videos_image[:3]]
+            except:
+                latest_video_image = ['']
             # Write the data to the CSV file
             try:
                 other_links = driver.find_elements(by='xpath', value='//*[@id="secondary-links"]/a')
                 other_link = [url.get_attribute('href') for url in other_links]
                 other_title = [title.get_attribute('title') for title in other_links]
             except:
-                print('')
+                other_title = ''
+                other_link = ''
             # Write the data to the CSV file
             writer.writerow(
                 [tag, platform, avatar, name, channel_url, location, subscribers_count, video_count,
