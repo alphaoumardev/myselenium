@@ -27,7 +27,8 @@ driver = webdriver.Chrome(options=options)
 # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-with open('cate.csv', mode='a', newline='') as file:
+with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
+    reader = reading.read().splitlines()
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
 
@@ -38,7 +39,7 @@ with open('cate.csv', mode='a', newline='') as file:
     driver.refresh()
     try:
         for tag in tags:
-            driver.get(f"https://www.tiktok.com/search/user?q={tag}&t=1682423555521")
+            driver.get(f"https://www.tiktok.com/search/user?q={tag}")
             driver.refresh()
             last_height = driver.execute_script('return document.documentElement.scrollHeight')
             while True:
@@ -50,17 +51,13 @@ with open('cate.csv', mode='a', newline='') as file:
                 last_height = new_height
                 for i in range(1, 50):
                     try:
-                        driver.find_element(by='xpath',
-                                            value='//*[@id="tabs-0-panel-search_account"]/div[{}1]/button'.format(
-                                                i)).click()
+                        driver.find_element(by='xpath', value='//*[@id="tabs-0-panel-search_account"]/div[{}1]/button'.format(i)).click()
                     except:
                         continue
                     try:
                         for n in range(0, 500):
                             try:
-                                profiles = driver.find_element(by='xpath',
-                                                               value='//*[@id="search_user-item-user-link-{}"]/a[2]/p[1]]'.format(
-                                                                   n)).text
+                                profiles = driver.find_element(by='xpath', value='//*[@id="search_user-item-user-link-{}"]/a[2]/p[1]]'.format(n)).text
                                 writer.writerow([tag, profiles])
                             except:
                                 print("404")
