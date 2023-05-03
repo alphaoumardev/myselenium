@@ -95,8 +95,7 @@ with open('category.csv', mode='a', newline='') as file:
                 break
             last_height = new_height
 
-        # Extract the channel names and store them in the CSV file
-        channel_elements = driver.find_elements('xpath', '//*[@id="subscribers"]')
+        channel_elements = driver.find_elements(by='xpath', value='//*[@id="subscribers"]')
 
         channel_names = [elem.text for elem in channel_elements]
         for channel_name in channel_names:
