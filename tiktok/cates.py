@@ -16,9 +16,9 @@ driver = webdriver.Chrome(options=options)
 # driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
 #
 # driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[1]/input').send_keys(
-#     'alphaoumardev@outlook.com')
+#     '')
 # driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[2]/div/input').send_keys(
-#     'Bonjouroumar200@')
+#     '')
 # driver.refresh()
 # time.sleep(20)
 # driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
@@ -34,7 +34,7 @@ with open('cate.csv', mode='a', newline='') as file:
     driver.get(f"https://www.tiktok.com/")
     time.sleep(10)
     driver.get("https://www.tiktok.com/@alx.suarez2/video/7227602923918740779")
-    time.sleep(20)
+    time.sleep(10)
     driver.refresh()
     try:
         for tag in tags:

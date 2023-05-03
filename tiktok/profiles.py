@@ -9,6 +9,8 @@ options.add_argument('--disable-notifications')
 options.add_argument('--disable-popup-blocking')
 options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
+options.add_argument('--disable-gpu')
+options.add_argument('--headless')
 
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()

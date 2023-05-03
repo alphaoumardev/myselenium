@@ -63,3 +63,5 @@ Scrapy~=2.8.0
 itemloaders~=1.1.0
 w3lib~=2.1.1
 itemadapter~=0.8.0
+TikTokApi~=5.2.2
+helpers~=0.2.0
