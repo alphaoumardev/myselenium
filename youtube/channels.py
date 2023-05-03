@@ -9,7 +9,6 @@ options.add_argument('--disable-popup-blocking')
 options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
 options.add_argument('--disable-cookies')
-
 # df = pd.read_excel('bookid.xlsx', )
 # channels_id = df['IDS'].tolist()
 # channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
@@ -18,7 +17,7 @@ options.add_argument('--disable-cookies')
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 
-with open('c_id.csv', 'r', encoding='utf-8') as ide, open('channels1.csv', 'a', newline='', encoding='utf-8') as file:
+with open('left.csv', 'r', encoding='utf-8') as ide, open('channs.csv', 'w', newline='', encoding='utf-8') as file:
     reader = csv.reader(ide)
     writer = csv.writer(file)
 
