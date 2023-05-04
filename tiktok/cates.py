@@ -9,8 +9,7 @@ options.add_argument('--disable-popup-blocking')
 options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
 
-tags = ['fashion', 'travel']
-
+# tags = ['fashion', 'travel']
 driver = webdriver.Chrome(options=options)
 # driver.get(f"https://www.tiktok.com/")
 # driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
@@ -27,18 +26,18 @@ driver = webdriver.Chrome(options=options)
 # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
-    reader = reading.read().splitlines()
+with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
+    reader = csv.reader(reading)
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
 
     driver.get(f"https://www.tiktok.com/")
     time.sleep(10)
-    driver.get("https://www.tiktok.com/@alx.suarez2/video/7227602923918740779")
-    time.sleep(10)
+    driver.get("https://www.tiktok.com/search/user?q=Action-adventure")
+    time.sleep(20)
     driver.refresh()
     try:
-        for tag in tags:
+        for tag in reader:
             driver.get(f"https://www.tiktok.com/search/user?q={tag}")
             driver.refresh()
             last_height = driver.execute_script('return document.documentElement.scrollHeight')
@@ -60,7 +59,7 @@ with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('
                                 profiles = driver.find_element(by='xpath', value='//*[@id="search_user-item-user-link-{}"]/a[2]/p[1]]'.format(n)).text
                                 writer.writerow([tag, profiles])
                             except:
-                                print("404")
+                                print('')
                     except:
                         break
     except Exception as e:
