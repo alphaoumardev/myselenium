@@ -16,12 +16,12 @@ driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 driver.refresh()
 
-with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('profiles.csv', mode='w', newline='',
-                                                                               encoding='utf-8') as file:
+with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('profiles.csv', mode='w', newline='', encoding='utf-8') as file:
     reader = csv.reader(reading)
     writer = csv.writer(file)
     writer.writerow(['Tags', 'Platform', 'Avatar', 'Profile Name', 'Profile Url', 'Location', 'Followers Count',
-                     'Likes', 'Description', 'Email', '3 Latest Videos Url', '3 Latest Videos Title', '3 Latest videos image'])
+                     'Likes', 'Description', 'Email', '3 Latest Videos Url', '3 Latest Videos Title',
+                     '3 Latest videos image'])
 
     driver.get("https://www.tiktok.com/")
     time.sleep(15)
@@ -35,29 +35,26 @@ with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('
             tag = row[0]
             platform = 'Tiktok'
             try:
-                avatar = driver.find_element(By.XPATH, value='//*[@id="main-content-others_homepage"]/div/div[1]/div[1]/div[1]/span/img').get_attribute('src')
+                avatar = driver.find_element(By.XPATH, value='//*[@id="main-content-others_homepage"]/div/div[1]/div[1]/div[1]/span/img').get_attribute(
+                    'src')
             except:
                 avatar = ''
             try:
-                name = driver.find_element(by="xpath",
-                                           value='//*[@id="main-content-others_homepage"]/div/div[1]/div[1]/div[2]/h2').text
+                name = driver.find_element(by="xpath", value='//*[@id="main-content-others_homepage"]/div/div[1]/div[1]/div[2]/h2').text
             except:
                 name = ''
             profile_url = driver.current_url
             location = "USA"
             try:
-                followers = driver.find_element(by="xpath",
-                                                value='//*[@id="main-content-others_homepage"]/div/div[1]/h3/div[2]/strong').text + " Followers"
+                followers = driver.find_element(by="xpath", value='//*[@id="main-content-others_homepage"]/div/div[1]/h3/div[2]/strong').text + " Followers"
             except:
                 followers = '0 Flollower'
             try:
-                likes = driver.find_element(by="xpath",
-                                            value='//*[@id="main-content-others_homepage"]/div/div[1]/h3/div[3]/strong').text + ' Likes'
+                likes = driver.find_element(by="xpath", value='//*[@id="main-content-others_homepage"]/div/div[1]/h3/div[3]/strong').text + ' Likes'
             except:
                 likes = '0 Like'
             try:
-                description = driver.find_element(by="xpath",
-                                                  value='//*[@id="main-content-others_homepage"]/div/div[1]/h2').text
+                description = driver.find_element(by="xpath", value='//*[@id="main-content-others_homepage"]/div/div[1]/h2').text
             except:
                 description = ''
             try:
@@ -67,17 +64,13 @@ with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('
                 email = 'N/A'
             try:
                 for i in range(1, 3):
-                    videos_url = driver.find_elements(by='xpath',
-                                                      value='//*[@id="main-content-others_homepage"]/div/div[2]/div[2]/div/div[{}]/div[2]/a'.format(
-                                                          i))
+                    videos_url = driver.find_elements(by='xpath', value='//*[@id="main-content-others_homepage"]/div/div[2]/div[2]/div/div[{}]/div[2]/a'.format(i))
                     video_url = [link.get_attribute('href') for link in videos_url[:3]]
             except:
                 video_url = []
             try:
                 for i in range(1, 3):
-                    videos_title = driver.find_elements(by='xpath',
-                                                        value='//*[@id="main-content-others_homepage"]/div/div[2]/div[2]/div/div[{}]/div[2]/a'.format(
-                                                            i))
+                    videos_title = driver.find_elements(by='xpath', value='//*[@id="main-content-others_homepage"]/div/div[2]/div[2]/div/div[{}]/div[2]/a'.format(i))
                     video_title = [title.get_attribute('title') for title in videos_title[:3]]
             except:
                 video_title = []
