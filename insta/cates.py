@@ -35,7 +35,7 @@ with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('
     driver.get(f"https://www.tiktok.com/")
     time.sleep(10)
     driver.get("https://www.tiktok.com/@alx.suarez2/video/7227602923918740779")
-    time.sleep(20)
+    time.sleep(10)
     driver.refresh()
     try:
         for tag in tags:
