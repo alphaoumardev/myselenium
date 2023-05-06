@@ -27,9 +27,8 @@ driver = webdriver.Chrome(options=options)
 # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-# with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading,
-with open('cate.csv', mode='a', newline='', encoding='utf-8') as file:
-    # reader = csv.reader(reading)
+with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading, open('cate.csv', mode='a', newline='', encoding='utf-8') as file:
+    reader = csv.reader(reading)
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
 
@@ -39,7 +38,7 @@ with open('cate.csv', mode='a', newline='', encoding='utf-8') as file:
     time.sleep(15)
     driver.refresh()
     try:
-        for tag in tags:
+        for tag in reader:
             driver.get(f"https://www.tiktok.com/search/user?q={tag}")
             driver.refresh()
             last_height = driver.execute_script('return document.documentElement.scrollHeight')
