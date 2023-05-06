@@ -27,10 +27,10 @@ driver = webdriver.Chrome(options=options)
 # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading, open('cate.csv', mode='a', newline='', encoding='utf-8') as file:
+with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
     reader = csv.reader(reading)
     writer = csv.writer(file)
-    writer.writerow(['Tag', 'Profiles'])
+    # writer.writerow(['Tag', 'Profiles'])
 
     driver.get(f"https://www.tiktok.com/")
     time.sleep(10)
