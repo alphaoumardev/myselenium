@@ -7,7 +7,7 @@
 # with open('category.txt', 'w') as file:
 #     file.writelines(data)
 
-# To remove the whitespace and replace it with + for YouTube search
+# To remove the space and replace it with + for YouTube search
 with open('categories.txt') as f:
     lines = f.readlines()
     # Remove empty lines

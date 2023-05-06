@@ -5,6 +5,11 @@
 #         f.write(channel_id + '\n')
 # print(channel_ids)
 
-with open('category.txt') as f:
-    username = f.read().splitlines()
-print(username)
+# with open('category.txt') as f:
+#     username = f.read().splitlines()
+# print(username)
+
+with open('ta.csv', mode='r') as f:
+    print(f.readlines())
+    # username = f.read().splitlines()
+    # print(username)

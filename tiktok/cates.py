@@ -9,7 +9,8 @@ options.add_argument('--disable-popup-blocking')
 options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
 
-# tags = ['fashion', 'travel']
+tags = ['Jewellery', 'Hats', 'Beautiful', 'Makeup', 'Skincare', 'hair', 'vacation', 'Hairstyle', 'vaping', 'Sports%20game']
+#
 driver = webdriver.Chrome(options=options)
 # driver.get(f"https://www.tiktok.com/")
 # driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
@@ -26,18 +27,19 @@ driver = webdriver.Chrome(options=options)
 # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
-with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
-    reader = csv.reader(reading)
+# with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading,
+with open('cate.csv', mode='a', newline='', encoding='utf-8') as file:
+    # reader = csv.reader(reading)
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
 
     driver.get(f"https://www.tiktok.com/")
     time.sleep(10)
     driver.get("https://www.tiktok.com/search/user?q=Action-adventure")
-    time.sleep(20)
+    time.sleep(15)
     driver.refresh()
     try:
-        for tag in reader:
+        for tag in tags:
             driver.get(f"https://www.tiktok.com/search/user?q={tag}")
             driver.refresh()
             last_height = driver.execute_script('return document.documentElement.scrollHeight')
@@ -51,16 +53,13 @@ with open('ta.csv', mode='r', newline='', encoding='utf-8') as reading, open('ca
                 for i in range(1, 50):
                     try:
                         driver.find_element(by='xpath', value='//*[@id="tabs-0-panel-search_account"]/div[{}1]/button'.format(i)).click()
-                    except:
-                        continue
-                    try:
                         for n in range(0, 500):
                             try:
-                                profiles = driver.find_element(by='xpath', value='//*[@id="search_user-item-user-link-{}"]/a[2]/p[1]]'.format(n)).text
+                                profiles = driver.find_element(by='xpath', value='//*[@id="search_user-item-user-link-{}"]/a[2]/p[1]'.format(n)).text
                                 writer.writerow([tag, profiles])
                             except:
-                                print('')
+                                continue
                     except:
-                        break
+                        continue
     except Exception as e:
         print(e)
