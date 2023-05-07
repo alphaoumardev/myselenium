@@ -16,8 +16,8 @@ driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 driver.refresh()
 
-with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('profiles.csv', mode='w', newline='',
-                                                                               encoding='utf-8') as file:
+with open('cates.csv', mode='r', newline='', encoding='utf-8') as reading, open('profiles.csv', mode='a', newline='',
+                                                                                encoding='utf-8') as file:
     reader = csv.reader(reading)
     writer = csv.writer(file)
     writer.writerow(['Tags', 'Platform', 'Avatar', 'Profile Name', 'Profile Url', 'Location', 'Followers Count',
@@ -31,7 +31,7 @@ with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('
 
     for row in reader:
         try:
-            driver.get(row[1])  # //*[@id="search_user-item-user-link-0"]/a[2]/p[1]
+            driver.get(f'https://www.tiktok.com/@{row[1]}')  # //*[@id="search_user-item-user-link-0"]/a[2]/p[1]
             tag = row[0]
             platform = 'Tiktok'
             try:

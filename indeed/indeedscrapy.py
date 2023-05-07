@@ -1,5 +1,6 @@
-from requests_html import HTMLSession
 import csv
+
+from requests import HTMLSession
 
 
 def job_data_get(s, url: str) -> tuple:
