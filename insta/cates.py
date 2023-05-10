@@ -12,21 +12,22 @@ options.add_argument('--disable-extensions')
 tags = ['fashion', 'travel']
 
 driver = webdriver.Chrome(options=options)
-# driver.get(f"https://www.tiktok.com/")
-# driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
-#
-# driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[1]/input').send_keys(
-#     '')
-# driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[2]/div/input').send_keys(
-#     '')
-# driver.refresh()
-# time.sleep(20)
-# driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
-# driver.get(f"https://www.tiktok.com/")
-# driver.implicitly_wait(43)
-# Login
-# driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
-# driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
+driver.get(f"https://www.tiktok.com/")
+driver.get(f"https://www.tiktok.com/login/phone-or-email/email")
+
+driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[1]/input').send_keys(
+    '')
+driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/div[2]/div/input').send_keys(
+    '')
+driver.refresh()
+time.sleep(20)
+driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
+driver.get(f"https://www.tiktok.com/")
+driver.implicitly_wait(43)
+Login
+driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
+driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
+
 with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
     reader = reading.read().splitlines()
     writer = csv.writer(file)
