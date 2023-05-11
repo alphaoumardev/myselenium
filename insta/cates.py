@@ -24,7 +24,7 @@ time.sleep(20)
 driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
 driver.get(f"https://www.tiktok.com/")
 driver.implicitly_wait(43)
-Login
+# Login
 driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
 
