@@ -33,10 +33,10 @@ with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
 
-    driver.get(f"https://www.tiktok.com/")
+    driver.get(f"https://www.instagram.com/")
     time.sleep(10)
-    driver.get("https://www.tiktok.com/@alx.suarez2/video/7227602923918740779")
-    time.sleep(10)
+    # driver.get("https://www.instagram.com/@alx.suarez2/video/7227602923918740779")
+    # time.sleep(10)
     driver.refresh()
     try:
         for tag in tags:
