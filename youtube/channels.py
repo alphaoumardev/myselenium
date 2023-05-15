@@ -21,10 +21,10 @@ with open('ids.csv', 'r', encoding='utf-8') as ide, open('draft.csv', 'w', newli
     writer = csv.writer(file)
 
     # Write the header row
-    writer.writerow(
-        ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Channel Url', 'Location', 'Subscribers Count',
-         'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
-         '3 Latest Videos Title', '3 Latest videos image', 'Other Links', 'Link Title'])
+    # writer.writerow(
+    #     ['Tags', 'Platform', 'Avatar', 'Channel Name', 'Channel Url', 'Location', 'Subscribers Count',
+    #      'Video count', 'Description', 'joined', 'Views', 'Email', '3 Latest Videos Url',
+    #      '3 Latest Videos Title', '3 Latest videos image', 'Other Links', 'Link Title'])
     for row in reader:
         try:
             driver.get(f'https://www.youtube.com/channel/{row[1]}/about')
