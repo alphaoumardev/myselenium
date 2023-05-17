@@ -19,9 +19,9 @@ driver.refresh()
 with open('cate.csv', mode='r', newline='', encoding='utf-8') as reading, open('profiles.csv', mode='w', newline='', encoding='utf-8') as file:
     reader = csv.reader(reading)
     writer = csv.writer(file)
-    writer.writerow(['Tags', 'Platform', 'Avatar', 'Profile Name', 'Profile Url', 'Location', 'Followers Count',
-                     'Likes', 'Description', 'Email', '3 Latest Videos Url', '3 Latest Videos Title',
-                     '3 Latest videos image'])
+    # writer.writerow(['Tags', 'Platform', 'Avatar', 'Profile Name', 'Profile Url', 'Location', 'Followers Count',
+    #                  'Likes', 'Description', 'Email', '3 Latest Videos Url', '3 Latest Videos Title',
+    #                  '3 Latest videos image'])
 
     driver.get("https://www.tiktok.com/")
     time.sleep(15)
