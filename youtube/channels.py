@@ -1,5 +1,6 @@
 import csv
 
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -9,11 +10,13 @@ options.add_argument('--disable-popup-blocking')
 options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
 options.add_argument('--disable-cookies')
-# df = pd.read_excel('bookid.xlsx', )
-# channels_id = df['IDS'].tolist()
-# channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
-# categories = ['sport', 'Arcade', 'Board']
-driver = webdriver.Chrome(options=options,)
+
+df = pd.read_excel('bookid.xlsx', )
+channels_id = df['IDS'].tolist()
+channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
+categories = ['sport', 'Arcade', 'Board']
+
+driver = webdriver.Chrome(options=options, )
 driver.maximize_window()
 
 with open('ids.csv', 'r', encoding='utf-8') as ide, open('draft.csv', 'w', newline='', encoding='utf-8') as file:
