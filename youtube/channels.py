@@ -10,10 +10,10 @@ options.add_argument('--start-maximized')
 options.add_argument('--disable-extensions')
 options.add_argument('--disable-cookies')
 
-# df = pd.read_excel('bookid.xlsx', )
-# channels_id = df['IDS'].tolist()
-# channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
-# categories = ['sport', 'Arcade', 'Board']
+df = pd.read_excel('bookid.xlsx', )
+channels_id = df['IDS'].tolist()
+channel_usernames = ['javascriptmastery', 'mohamed_hoblos', 'CodingWithDawid', 'FoxNews', 'IdrissJAberkane']
+categories = ['sport', 'Arcade', 'Bo ard']
 
 driver = webdriver.Chrome(options=options, )
 driver.maximize_window()
