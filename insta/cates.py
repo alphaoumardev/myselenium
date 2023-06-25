@@ -32,12 +32,12 @@ with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('
     reader = reading.read().splitlines()
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
-
-    driver.get(f"https://www.instagram.com/")
-    time.sleep(10)
-    # driver.get("https://www.instagram.com/@alx.suarez2/video/7227602923918740779")
+    #
+    # driver.get(f"https://www.instagram.com/")
     # time.sleep(10)
-    driver.refresh()
+    # # driver.get("https://www.instagram.com/@alx.suarez2/video/7227602923918740779")
+    # # time.sleep(10)
+    # driver.refresh()
     try:
         for tag in tags:
             driver.get(f"https://www.tiktok.com/search/user?q={tag}")
