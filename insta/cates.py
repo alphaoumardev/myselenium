@@ -24,18 +24,19 @@ driver = webdriver.Chrome(options=options)
 # driver.find_element(by='xpath', value='//*[@id="loginContainer"]/div[1]/form/button').click()
 # driver.get(f"https://www.tiktok.com/")
 # driver.implicitly_wait(43)
-# Login
+# # Login
 # driver.find_element(by='xpath', value='//*[@id="login-modal"]/div[2]').click()
 # driver.find_element(by='xpath', value='//*[@id="app"]/div[2]/div[1]/div/div[2]/div/div[1]/div[1]/button').click()
+
 with open('tags.txt', mode='r', newline='', encoding='utf-8') as reading, open('cates.csv', mode='a', newline='', encoding='utf-8') as file:
     reader = reading.read().splitlines()
     writer = csv.writer(file)
     writer.writerow(['Tag', 'Profiles'])
 
-    driver.get(f"https://www.tiktok.com/")
+    driver.get(f"https://www.instagram.com/")
     time.sleep(10)
-    driver.get("https://www.tiktok.com/@alx.suarez2/video/7227602923918740779")
-    time.sleep(10)
+    # driver.get("https://www.instagram.com/@alx.suarez2/video/7227602923918740779")
+    # time.sleep(10)
     driver.refresh()
     try:
         for tag in tags:
