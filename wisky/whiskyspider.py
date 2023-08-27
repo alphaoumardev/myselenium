@@ -14,7 +14,7 @@ class WhiskeySpider(scrapy.Spider):
             l.add_css('name', 'a.product-item-link')
             l.add_css('price', 'span.price')
             l.add_css('link', 'a.product-item-link::attr(href)')
-
+            #to yield the current branch
             yield l.load_item()
 
 
