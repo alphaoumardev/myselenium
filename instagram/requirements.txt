@@ -102,7 +102,7 @@ uritemplate==4.1.1
 urllib3==2.2.2
 vine==5.0.0
 w3lib==2.1.1
-Werkzeug==3.0.3
+Werkzeug==3.0.6
 wrapt==1.15.0
 wsproto==1.2.0
 zope.interface==6.0
