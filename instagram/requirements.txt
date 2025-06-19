@@ -67,7 +67,7 @@ path==16.6.0
 path.py==12.5.0
 Pillow==10.4.0
 Protego==0.2.1
-protobuf==4.22.3
+protobuf==4.25.8
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
@@ -99,7 +99,7 @@ Twisted==24.7.0
 typing_extensions==4.5.0
 tzdata==2023.3
 uritemplate==4.1.1
-urllib3==2.2.2
+urllib3==2.5.0
 vine==5.0.0
 w3lib==2.1.1
 Werkzeug==3.0.6
