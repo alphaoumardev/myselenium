@@ -22,7 +22,7 @@ django-restframework==0.0.1
 djangorestframework==3.15.2
 dnspython==2.6.1
 et-xmlfile==1.1.0
-eventlet==0.36.1
+eventlet==0.40.3
 exceptiongroup==1.1.1
 google==3.0.0
 google-api-core==2.11.0
@@ -36,7 +36,7 @@ googleapis-common-protos==1.59.0
 googletrans==4.0.0rc1
 greenlet==2.0.2
 h11==0.16.0
-h2==3.2.0
+h2==4.3.0
 hpack==3.0.0
 hstspreload==2023.1.1
 httpcore==0.9.1
