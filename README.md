@@ -1,6 +1,6 @@
 # Crawlers
 
-A comprehensive collection of web scrapers and automation scripts built with Python, designed to extract data from various platforms including e-commerce sites, social media, job boards, and more.
+A collection of web scrapers and automation scripts built with Python, designed to extract data from various platforms including e-commerce sites, social media, job boards, and more.
 
 ## Table of Contents
 
