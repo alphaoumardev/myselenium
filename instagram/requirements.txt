@@ -65,7 +65,7 @@ pandas==2.0.0
 parsel==1.8.1
 path==16.6.0
 path.py==12.5.0
-Pillow==12.1.1
+Pillow==12.2.0
 Protego==0.2.1
 protobuf==5.29.6
 pyasn1==0.6.3
