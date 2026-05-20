@@ -28,7 +28,7 @@ httpcore==0.9.1
 httplib2==0.22.0
 httpx==0.27.0
 hyperframe==5.2.0
-idna==3.7
+idna==3.15
 importlib-metadata==6.4.1
 macholib @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot7/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/python3/python3-133.100.1.1/macholib-1.15.2-py2.py3-none-any.whl
 Markdown==3.4.3
