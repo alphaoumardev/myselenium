@@ -59,7 +59,7 @@ wsproto==1.2.0
 zipp==3.19.1
 
 pandas~=2.0.0
-Scrapy~=2.15.1
+Scrapy~=2.16.0
 itemloaders~=1.1.0
 w3lib~=2.1.1
 itemadapter~=0.8.0
